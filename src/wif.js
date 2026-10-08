@@ -1,23 +1,35 @@
 'use strict';
 
-/** Parse INI-style WIF text into { SECTION: { key: value } } (keys lower-cased, sections upper-cased). */
-function parseIni(text) {
-  const out = {};
+/**
+ * Scan INI-style WIF text.
+ * Returns { ini: { SECTION: { key: value } }, where: { SECTION: line, "SECTION.key": line } }
+ * (keys lower-cased, sections upper-cased, lines 0-based).
+ */
+function scan(text) {
+  const ini = {};
+  const where = {};
   let cur = null;
-  for (const raw of text.replace(/^﻿/, '').split(/\r?\n/)) {
+  let curName = '';
+  text.replace(/^\uFEFF/, '').split(/\r?\n/).forEach((raw, n) => {
     const line = raw.trim();
-    if (!line || line.startsWith(';')) continue;
+    if (!line || line.startsWith(';')) return;
     const sec = /^\[([^\]]+)\]/.exec(line);
     if (sec) {
-      cur = out[sec[1].trim().toUpperCase()] ||= {};
-      continue;
+      curName = sec[1].trim().toUpperCase();
+      cur = ini[curName] ||= {};
+      where[curName] ??= n;
+      return;
     }
     const eq = line.indexOf('=');
-    if (eq < 0 || !cur) continue;
-    cur[line.slice(0, eq).trim().toLowerCase()] = line.slice(eq + 1).replace(/\s;.*$/, '').trim();
-  }
-  return out;
+    if (eq < 0 || !cur) return;
+    const key = line.slice(0, eq).trim().toLowerCase();
+    cur[key] = line.slice(eq + 1).replace(/\s;.*$/, '').trim();
+    where[`${curName}.${key}`] = n;
+  });
+  return { ini, where };
 }
+
+const parseIni = (text) => scan(text).ini;
 
 const isTrue = (v, dflt) => (v === undefined ? dflt : /^(true|yes|on|1)$/i.test(v));
 const ints = (v) => (v || '').split(',').map((s) => parseInt(s, 10)).filter(Number.isFinite);
@@ -123,4 +135,64 @@ function warpUp(model, i, j) {
   return model.risingShed ? up : !up;
 }
 
-module.exports = { parseIni, parseWif, warpUp };
+/**
+ * Find problems in WIF text. Returns [{ line, severity: 'error'|'warning', message }] (line 0-based).
+ */
+function diagnose(text) {
+  const { ini, where } = scan(text);
+  const out = [];
+  const add = (line, severity, message) => out.push({ line: line ?? 0, severity, message });
+  const at = (sec, key) => where[`${sec}.${key}`] ?? where[sec] ?? 0;
+
+  if (!ini.WIF) add(0, 'warning', 'Missing [WIF] section.');
+  for (const sec of ['WEAVING', 'WARP', 'WEFT', 'THREADING']) {
+    if (!ini[sec]) add(0, 'warning', `Missing [${sec}] section.`);
+  }
+  if (!ini.TREADLING && !ini.LIFTPLAN) add(0, 'warning', 'Needs [TREADLING] (with [TIEUP]) or [LIFTPLAN].');
+  if (ini.TREADLING && !ini.TIEUP) add(where.TREADLING, 'warning', '[TREADLING] without [TIEUP].');
+
+  const declared = (sec, key) => parseInt((ini[sec] || {})[key], 10) || 0;
+  const shafts = declared('WEAVING', 'shafts');
+  const treadles = declared('WEAVING', 'treadles');
+  const ends = declared('WARP', 'threads');
+  const picks = declared('WEFT', 'threads');
+
+  // sec: section; keyMax: max for the key index; valMax: max for each value
+  const checkIndexed = (sec, keyMax, keyWhat, valMax, valWhat) => {
+    for (const [k, v] of Object.entries(ini[sec] || {})) {
+      if (!/^\d+$/.test(k)) continue;
+      const line = at(sec, k);
+      const toks = v.split(',').map((t) => t.trim()).filter(Boolean);
+      if (toks.some((t) => !/^\d+$/.test(t))) {
+        add(line, 'error', `[${sec}] ${k}: values must be whole numbers, got "${v}".`);
+        continue;
+      }
+      if (keyMax && +k > keyMax) add(line, 'error', `[${sec}] ${keyWhat} ${k} is past the declared ${keyMax}.`);
+      for (const t of toks) {
+        if (+t < 1 || (valMax && +t > valMax)) {
+          add(line, 'error', `[${sec}] ${k}: ${valWhat} ${t} is outside 1..${valMax || '?'}.`);
+        }
+      }
+    }
+  };
+  checkIndexed('THREADING', ends, 'end', shafts, 'shaft');
+  checkIndexed('TIEUP', treadles, 'treadle', shafts, 'shaft');
+  checkIndexed('TREADLING', picks, 'pick', treadles, 'treadle');
+  checkIndexed('LIFTPLAN', picks, 'pick', shafts, 'shaft');
+
+  const colors = ini['COLOR TABLE'] || {};
+  const checkColor = (sec, key, line) => {
+    const v = (ini[sec] || {})[key];
+    if (v !== undefined && /^\d+$/.test(v) && !(v in colors)) {
+      add(line, 'warning', `Color ${v} is not in [COLOR TABLE].`);
+    }
+  };
+  checkColor('WARP', 'color', at('WARP', 'color'));
+  checkColor('WEFT', 'color', at('WEFT', 'color'));
+  for (const sec of ['WARP COLORS', 'WEFT COLORS']) {
+    for (const k of Object.keys(ini[sec] || {})) checkColor(sec, k, at(sec, k));
+  }
+  return out;
+}
+
+module.exports = { parseIni, parseWif, warpUp, diagnose };

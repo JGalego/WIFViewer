@@ -52,7 +52,7 @@ npm run publish
 - `src/wif.js` – WIF parser and drawdown logic
 - `src/extension.js` – custom editor provider
 - `media/` – webview script and styles
-- `samples/` – example drafts
+- `samples/` – example drafts (`node samples/generate.js` rebuilds all but `twill.wif`)
 
 ## Pre-commit
 

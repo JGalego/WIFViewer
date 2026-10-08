@@ -3,3 +3,10 @@ body { font-family: var(--vscode-font-family); color: var(--vscode-foreground); 
 #warn { color: var(--vscode-editorWarning-foreground); margin-bottom: 8px; }
 .bar { margin: 8px 0; opacity: .85; }
 canvas { background: var(--vscode-editor-background); }
+#wrap { overflow: auto; max-height: calc(100vh - 140px); position: relative; }
+button { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); border: 0; padding: 3px 10px; margin-left: 6px; cursor: pointer; }
+button:hover { background: var(--vscode-button-secondaryHoverBackground); }
+#hint { margin-left: 12px; opacity: .6; font-size: 11px; }
+#tip { position: fixed; pointer-events: none; padding: 3px 8px; font-size: 12px; z-index: 10;
+  background: var(--vscode-editorHoverWidget-background); color: var(--vscode-editorHoverWidget-foreground);
+  border: 1px solid var(--vscode-editorHoverWidget-border); }

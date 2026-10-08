@@ -1,0 +1,81 @@
+[WIF]
+Version=1.1
+Date=October 8, 2026
+Developers=wifviewer
+Source Program=wifviewer samples
+Source Version=1
+
+[CONTENTS]
+COLOR PALETTE=true
+TEXT=true
+WEAVING=true
+WARP=true
+WEFT=true
+COLOR TABLE=true
+THREADING=true
+TIEUP=true
+TREADLING=true
+
+[TEXT]
+Title=Plain weave
+
+[COLOR PALETTE]
+Range=0,255
+Entries=2
+
+[COLOR TABLE]
+1=20,40,140
+2=240,230,200
+
+[WEAVING]
+Shafts=2
+Treadles=2
+Rising Shed=true
+
+[WARP]
+Threads=16
+Color=1
+
+[WEFT]
+Threads=16
+Color=2
+
+[THREADING]
+1=1
+2=2
+3=1
+4=2
+5=1
+6=2
+7=1
+8=2
+9=1
+10=2
+11=1
+12=2
+13=1
+14=2
+15=1
+16=2
+
+[TIEUP]
+1=1
+2=2
+
+[TREADLING]
+1=1
+2=2
+3=1
+4=2
+5=1
+6=2
+7=1
+8=2
+9=1
+10=2
+11=1
+12=2
+13=1
+14=2
+15=1
+16=2

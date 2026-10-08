@@ -11,7 +11,7 @@
   "keywords": ["wif", "weaving", "loom", "draft", "textile"],
   "repository": { "type": "git", "url": "https://github.com/JGalego/WIFviewer" },
   "main": "./src/extension.js",
-  "activationEvents": [],
+  "activationEvents": ["onLanguage:wif"],
   "contributes": {
     "languages": [
       {
