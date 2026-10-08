@@ -1,5 +1,17 @@
 # wifviewer
 
+[![CI](https://github.com/JGalego/WIFViewer/actions/workflows/ci.yml/badge.svg)](https://github.com/JGalego/WIFViewer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![VS Code](https://img.shields.io/badge/VS%20Code-%E2%89%A51.85-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
+[![Node](https://img.shields.io/badge/node-20-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+![Warp](https://img.shields.io/badge/warp-up-2e60c8)
+![Weft](https://img.shields.io/badge/weft-down-f5ecd2)
+![Sheep](https://img.shields.io/badge/sheep%20harmed-0-success)
+![Loom](https://img.shields.io/badge/works%20on-my%20loom-orange)
+![Tangles](https://img.shields.io/badge/thread%20tangles-none%20(yet)-lightgrey)
+![Tie-up](https://img.shields.io/badge/tie--up-not%20tied%20up%20at%20work-blueviolet)
+
 VS Code extension to view weaving draft files (`.wif`): threading, tie-up, treadling/liftplan and a colored drawdown.
 
 The Marketplace page text lives in [`docs/MARKETPLACE.md`](docs/MARKETPLACE.md). This file is for developers.
