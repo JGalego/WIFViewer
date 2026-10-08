@@ -69,6 +69,9 @@ class WifEditorProvider {
   }
 }
 
+const activeUri = () =>
+  vscode.window.activeTextEditor?.document.uri ?? vscode.window.tabGroups.activeTabGroup.activeTab?.input?.uri;
+
 function activate(context) {
   const diags = vscode.languages.createDiagnosticCollection('wif');
   const refresh = (doc) => {
@@ -97,6 +100,16 @@ function activate(context) {
     vscode.commands.registerCommand('wifViewer.openSource', async () => {
       const uri = vscode.window.tabGroups.activeTabGroup.activeTab?.input?.uri;
       if (uri) await vscode.commands.executeCommand('vscode.openWith', uri, 'default');
+    }),
+    vscode.commands.registerCommand('wifViewer.openSide', async (arg) => {
+      const uri = arg instanceof vscode.Uri ? arg : activeUri();
+      if (!uri) return;
+      // Text on the left, preview beside it. Both share one TextDocument, so edits show live.
+      await vscode.commands.executeCommand('vscode.openWith', uri, 'default', vscode.ViewColumn.Active);
+      await vscode.commands.executeCommand('vscode.openWith', uri, 'wifViewer.preview', {
+        viewColumn: vscode.ViewColumn.Beside,
+        preserveFocus: true,
+      });
     }),
     vscode.commands.registerCommand('wifViewer.openPreview', async () => {
       const uri = vscode.window.activeTextEditor?.document.uri;

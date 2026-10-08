@@ -38,11 +38,16 @@
     ],
     "commands": [
       { "command": "wifViewer.openSource", "title": "WIF: Open as Text" },
-      { "command": "wifViewer.openPreview", "title": "WIF: Open Preview" }
+      { "command": "wifViewer.openPreview", "title": "WIF: Open Preview" },
+      { "command": "wifViewer.openSide", "title": "WIF: Open Text and Preview Side by Side", "icon": "$(open-preview)" }
     ],
     "menus": {
       "editor/title": [
-        { "command": "wifViewer.openSource", "when": "activeCustomEditorId == wifViewer.preview", "group": "navigation" }
+        { "command": "wifViewer.openSource", "when": "activeCustomEditorId == wifViewer.preview", "group": "navigation" },
+        { "command": "wifViewer.openSide", "when": "resourceExtname == .wif", "group": "navigation" }
+      ],
+      "explorer/context": [
+        { "command": "wifViewer.openSide", "when": "resourceExtname == .wif", "group": "navigation" }
       ]
     }
   },

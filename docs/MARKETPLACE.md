@@ -11,7 +11,7 @@ View weaving draft files (`.wif`) in VS Code.
 - Problems panel: out-of-range shafts/treadles, bad values, missing colors
 - Syntax highlighting for WIF source
 
-Open any `.wif` file. Use **WIF: Open as Text** to see the source.
+Open any `.wif` file. For text and preview side by side, click the preview icon in the editor title bar, or run **WIF: Open Text and Preview Side by Side**; the preview updates as you type. Use **WIF: Open as Text** to see the source.
 
 ## Format
 
