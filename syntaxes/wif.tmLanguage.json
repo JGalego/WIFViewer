@@ -1,0 +1,10 @@
+{
+  "scopeName": "source.wif",
+  "name": "WIF",
+  "patterns": [
+    { "name": "comment.line.semicolon.wif", "match": ";.*$" },
+    { "name": "entity.name.section.wif", "match": "^\\s*\\[[^\\]]*\\]" },
+    { "match": "^\\s*([^=;\\[]+?)\\s*(=)", "captures": { "1": { "name": "variable.other.key.wif" }, "2": { "name": "keyword.operator.wif" } } },
+    { "name": "constant.numeric.wif", "match": "\\b\\d+(\\.\\d+)?\\b" }
+  ]
+}

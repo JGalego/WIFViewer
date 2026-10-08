@@ -1,0 +1,10 @@
+.vscode/**
+.git/**
+test/**
+samples/**
+.gitignore
+**/*.map
+docs/**
+README.md
+images/make_icon.py
+images/icon.svg

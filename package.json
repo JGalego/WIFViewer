@@ -1,0 +1,57 @@
+{
+  "name": "wif-viewer",
+  "displayName": "WIF Viewer",
+  "description": "View weaving draft files (.wif): threading, tie-up, treadling and a colored drawdown.",
+  "version": "0.1.0",
+  "publisher": "JGalego",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Visualization", "Other"],
+  "keywords": ["wif", "weaving", "loom", "draft", "textile"],
+  "repository": { "type": "git", "url": "https://github.com/JGalego/WIFviewer" },
+  "main": "./src/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "wif",
+        "aliases": ["WIF", "Weaving Information File"],
+        "extensions": [".wif"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wif",
+        "scopeName": "source.wif",
+        "path": "./syntaxes/wif.tmLanguage.json"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "wifViewer.preview",
+        "displayName": "WIF Viewer",
+        "selector": [{ "filenamePattern": "*.wif" }],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      { "command": "wifViewer.openSource", "title": "WIF: Open as Text" },
+      { "command": "wifViewer.openPreview", "title": "WIF: Open Preview" }
+    ],
+    "menus": {
+      "editor/title": [
+        { "command": "wifViewer.openSource", "when": "activeCustomEditorId == wifViewer.preview", "group": "navigation" }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "package": "vsce package --readme-path docs/MARKETPLACE.md",
+    "publish": "vsce publish --readme-path docs/MARKETPLACE.md"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^4.0.0"
+  }
+}

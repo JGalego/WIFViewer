@@ -1,0 +1,5 @@
+body { font-family: var(--vscode-font-family); color: var(--vscode-foreground); padding: 12px; }
+#info { font-weight: 600; margin-bottom: 4px; }
+#warn { color: var(--vscode-editorWarning-foreground); margin-bottom: 8px; }
+.bar { margin: 8px 0; opacity: .85; }
+canvas { background: var(--vscode-editor-background); }
