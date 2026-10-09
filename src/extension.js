@@ -116,6 +116,11 @@ function activate(context) {
       if (uri) await vscode.commands.executeCommand('vscode.openWith', uri, 'wifViewer.preview');
     })
   );
+  return {
+    extendMarkdownIt(md) {
+      return md.use(require('./markdown').plugin);
+    },
+  };
 }
 
 function deactivate() {}

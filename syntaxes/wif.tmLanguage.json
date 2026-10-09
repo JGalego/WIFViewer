@@ -2,9 +2,54 @@
   "scopeName": "source.wif",
   "name": "WIF",
   "patterns": [
-    { "name": "comment.line.semicolon.wif", "match": ";.*$" },
-    { "name": "entity.name.section.wif", "match": "^\\s*\\[[^\\]]*\\]" },
-    { "match": "^\\s*([^=;\\[]+?)\\s*(=)", "captures": { "1": { "name": "variable.other.key.wif" }, "2": { "name": "keyword.operator.wif" } } },
-    { "name": "constant.numeric.wif", "match": "\\b\\d+(\\.\\d+)?\\b" }
-  ]
+    { "include": "#comment" },
+    { "include": "#section-known" },
+    { "include": "#section" },
+    { "include": "#assignment-index" },
+    { "include": "#assignment" }
+  ],
+  "repository": {
+    "comment": {
+      "name": "comment.line.semicolon.wif",
+      "match": ";.*$"
+    },
+    "section-known": {
+      "match": "^\\s*(\\[(?i:WIF|CONTENTS|TEXT|WEAVING|WARP|WEFT|COLOR PALETTE|COLOR TABLE|THREADING|TIEUP|TREADLING|LIFTPLAN|WARP COLORS|WEFT COLORS)\\])",
+      "captures": {
+        "1": { "name": "entity.name.section.known.wif" }
+      }
+    },
+    "section": {
+      "match": "^\\s*(\\[[^\\]]*\\])",
+      "captures": {
+        "1": { "name": "entity.name.section.wif" }
+      }
+    },
+    "value": {
+      "patterns": [
+        { "include": "#comment" },
+        { "name": "constant.language.boolean.wif", "match": "(?i)\\b(true|false|yes|no|on|off)\\b" },
+        { "name": "constant.numeric.wif", "match": "\\b\\d+(\\.\\d+)?\\b" },
+        { "name": "punctuation.separator.list.wif", "match": "," }
+      ]
+    },
+    "assignment-index": {
+      "begin": "^\\s*(\\d+)\\s*(=)",
+      "beginCaptures": {
+        "1": { "name": "constant.numeric.key.wif" },
+        "2": { "name": "keyword.operator.assignment.wif" }
+      },
+      "end": "$",
+      "patterns": [{ "include": "#value" }]
+    },
+    "assignment": {
+      "begin": "^\\s*([^=;\\[]+?)\\s*(=)",
+      "beginCaptures": {
+        "1": { "name": "variable.other.key.wif" },
+        "2": { "name": "keyword.operator.assignment.wif" }
+      },
+      "end": "$",
+      "patterns": [{ "include": "#value" }]
+    }
+  }
 }

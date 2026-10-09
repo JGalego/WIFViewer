@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <rect x="0.5" y="0.5" width="15" height="15" rx="2.5" fill="#e8eefc" stroke="#182040" stroke-width="1"/>
+  <g transform="translate(2,2)">
+    <rect x="0" y="0" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="3.1" y="0" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="6.2" y="0" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="9.3" y="0" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="0" y="3.1" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="3.1" y="3.1" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="6.2" y="3.1" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="9.3" y="3.1" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="0" y="6.2" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="3.1" y="6.2" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="6.2" y="6.2" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="9.3" y="6.2" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="0" y="9.3" width="2.7" height="2.7" fill="#c4b48a"/>
+    <rect x="3.1" y="9.3" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="6.2" y="9.3" width="2.7" height="2.7" fill="#2e60c8"/>
+    <rect x="9.3" y="9.3" width="2.7" height="2.7" fill="#c4b48a"/>
+  </g>
+</svg>

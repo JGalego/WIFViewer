@@ -2,7 +2,7 @@
   "name": "wif-viewer",
   "displayName": "WIF Viewer",
   "description": "View weaving draft files (.wif): threading, tie-up, treadling and a colored drawdown.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "JGalego",
   "license": "MIT",
   "icon": "images/icon.png",
@@ -11,14 +11,18 @@
   "keywords": ["wif", "weaving", "loom", "draft", "textile"],
   "repository": { "type": "git", "url": "https://github.com/JGalego/WIFviewer" },
   "main": "./src/extension.js",
-  "activationEvents": ["onLanguage:wif"],
+  "activationEvents": ["onLanguage:wif", "onLanguage:markdown"],
   "contributes": {
     "languages": [
       {
         "id": "wif",
         "aliases": ["WIF", "Weaving Information File"],
         "extensions": [".wif"],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/wif-file-light.svg",
+          "dark": "./images/wif-file-dark.svg"
+        }
       }
     ],
     "grammars": [
@@ -36,6 +40,8 @@
         "priority": "default"
       }
     ],
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": ["./media/markdown.css"],
     "commands": [
       { "command": "wifViewer.openSource", "title": "WIF: Open as Text" },
       { "command": "wifViewer.openPreview", "title": "WIF: Open Preview" },

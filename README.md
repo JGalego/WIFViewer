@@ -14,6 +14,21 @@
 
 VS Code extension to view weaving draft files (`.wif`): threading, tie-up, treadling/liftplan and a colored drawdown.
 
+Markdown previews also render image links to `.wif` files as inline drafts:
+
+```md
+![2/2 twill](samples/twill.wif)
+```
+
+Open `samples/preview.md` and use **Markdown: Open Preview** to try it.
+
+### Gotcha: Markdown Preview Enhanced
+
+WIF images only render in VS Code's built-in **Markdown: Open Preview**. The
+**Markdown Preview Enhanced** extension uses a separate rendering engine and
+does not load VS Code Markdown plugins, so `.wif` links appear as source text
+there.
+
 The Marketplace page text lives in [`docs/MARKETPLACE.md`](docs/MARKETPLACE.md). This file is for developers.
 
 ## Develop
@@ -31,7 +46,7 @@ Build a `.vsix` and install it:
 
 ```sh
 npm run package                        # creates wif-viewer-<version>.vsix
-code --install-extension wif-viewer-0.1.0.vsix
+code --install-extension wif-viewer-0.1.1.vsix
 ```
 
 Or in VS Code: Extensions view → `…` menu → **Install from VSIX…**.
@@ -50,7 +65,11 @@ npm run publish
 ## Layout
 
 - `src/wif.js` – WIF parser and drawdown logic
+- `src/draft.js` – SVG paint of a parsed draft
+- `src/markdown.js` – Markdown preview plugin (`![…](*.wif)`)
 - `src/extension.js` – custom editor provider
+- `syntaxes/wif.tmLanguage.json` – syntax highlighting
+- `images/wif-file-*.svg` – Explorer / tab icons for `.wif` files
 - `media/` – webview script and styles
 - `samples/` – example drafts (`node samples/generate.js` rebuilds all but `twill.wif`)
 

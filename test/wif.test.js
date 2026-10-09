@@ -83,3 +83,10 @@ test('satin has one warp float per pick, sinking shed inverts', () => {
   assert.strictEqual(sink.risingShed, false);
   assert.strictEqual([...Array(4).keys()].filter((i) => warpUp(sink, i, 0)).length, 3);
 });
+
+test('WIF grammar is valid and covers known sections', () => {
+  const grammar = JSON.parse(fs.readFileSync(path.join(__dirname, '../syntaxes/wif.tmLanguage.json'), 'utf8'));
+  assert.strictEqual(grammar.scopeName, 'source.wif');
+  assert.ok(grammar.repository['section-known'].match.includes('THREADING'));
+  assert.ok(grammar.repository.comment.match.startsWith(';'));
+});
