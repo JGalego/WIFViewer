@@ -2,7 +2,7 @@
   "name": "wif-viewer",
   "displayName": "WIF Viewer",
   "description": "View weaving draft files (.wif): threading, tie-up, treadling and a colored drawdown.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "publisher": "JGalego",
   "license": "MIT",
   "icon": "images/icon.png",

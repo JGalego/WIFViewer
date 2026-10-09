@@ -46,7 +46,7 @@ Build a `.vsix` and install it:
 
 ```sh
 npm run package                        # creates wif-viewer-<version>.vsix
-code --install-extension wif-viewer-0.1.1.vsix
+code --install-extension wif-viewer-0.2.0.vsix
 ```
 
 Or in VS Code: Extensions view → `…` menu → **Install from VSIX…**.
@@ -92,5 +92,5 @@ One-time setup: add the Marketplace PAT as repo secret `VSCE_PAT` (Settings → 
 To release: bump `version` in `package.json`, update `CHANGELOG.md`, then
 
 ```sh
-git tag v0.1.1 && git push origin v0.1.1
+git tag v0.2.0 && git push origin v0.2.0
 ```
